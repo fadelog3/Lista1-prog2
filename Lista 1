@@ -1,0 +1,95 @@
+#Questão 1
+def subir_escadas(n):#a solução para esse problema se baseia em ver de quantas formas é possível escrever um número usando somas de uns e dois(o resultafo é fibonacci)
+    if n==1:
+        return 1
+    if n==2:
+        return 2
+    anterior1=subir_escadas(n-1)
+    anterior2=subir_escadas(n-2)
+    return anterior1 + anterior2
+    
+print(subir_escadas(9))
+
+#Questão 2
+
+    def __add__(self, other_vector):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(self.coord[i]+other_vector.coord[i])
+      return Vector2D(new_vector)
+    
+    def __sub__(self, other_vector):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(self.coord[i]-other_vector.coord[i])
+      return Vector2D(new_vector)
+
+    def __neg__(self):
+      new_neg_vector=[]  
+      for i in range(self._dim):
+        new_neg_vector.append(-1*self.coord[i])
+      return Vector2D(new_neg_vector)  
+
+    def __mul__(self, a):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(a*self.coord[i])
+      return Vector2D(new_vector) 
+    
+    def __abs__(self):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(abs(self.coord[i]))
+      return Vector2D(new_vector) 
+
+#Questão 3
+
+class Vector3D(RealVector): #herda de Vector space e de RealVector
+    _dim = 3
+    def __init__(self, coord):
+        if len(coord) != 3:
+            raise ValueError
+        super().__init__(self._dim, coord)
+    
+    def __add__(self, other_vector):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(self.coord[i]+other_vector.coord[i])
+      return Vector3D(new_vector)
+    
+    def __sub__(self, other_vector):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(self.coord[i]-other_vector.coord[i])
+      return Vector3D(new_vector)
+
+    def __neg__(self):
+      new_neg_vector=[]  
+      for i in range(self._dim):
+        new_neg_vector.append(-1*self.coord[i])
+      return Vector3D(new_neg_vector)  
+
+    def __mul__(self, a):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(a*self.coord[i])
+      return Vector3D(new_vector) 
+    
+    def __abs__(self):
+      new_vector=[]
+      for i in range(self._dim):
+        new_vector.append(abs(self.coord[i]))
+      return Vector3D(new_vector) 
+
+
+V2 = Vector3D([1, 2, 3])
+print('V2= ', V2)
+W2 = Vector3D([4, 5, 6])
+print('W2= ', W2)
+print('V2+W2=',V2+W2)
+print('V2-W2=',V2-W2)
+print('-V2=',-V2)
+print('5*V2=',5*V2)
+X2=Vector3D([-1, 4, -6])
+print('X2=', X2)
+print('abs(X2)=',abs(X2))
