@@ -44,6 +44,8 @@ print(subir_escadas(9))
 
 #Questão 3
 
+#vetores 3d
+
 class Vector3D(RealVector): #herda de Vector space e de RealVector
     _dim = 3
     def __init__(self, coord):
@@ -75,27 +77,82 @@ class Vector3D(RealVector): #herda de Vector space e de RealVector
         new_vector.append(a*self.coord[i])
       return Vector3D(new_vector) 
     
-    def __abs__(self):
+    def __abs__(self): #essa função retorna todas as entradas do vetor com valores não negativos
       new_vector=[]
       for i in range(self._dim):
         new_vector.append(abs(self.coord[i]))
-      return Vector3D(new_vector) 
+      return Vector3D(new_vector)
+if __name__=='__main__':
+    V2 = Vector3D([1, 2, 3])
+    print('V2= ', V2)
+    W2 = Vector3D([4, 5, 6])
+    print('W2= ', W2)
+    print('V2+W2=',V2+W2)
+    print('V2-W2=',V2-W2)
+    print('-V2=',-V2)
+    print('5*V2=',5*V2)
+    X2=Vector3D([-1, 4, -6])
+    print('X2=', X2)
+    print('abs(X2)=',abs(X2))
+
+#polinômios
+
+class RealPol(VectorSpace):
+    _dim = math.inf
+    _field = float
+
+    def __init__(self, coord: dict):
+        super().__init__(self._dim, self._field)
+        self.coord=coord
+
+    def __add__(self, other_pol): #somando os coefcientes de mesmo grau
+        resultado={}
+        for exp, coef in self.coord.items():
+            resultado[exp] = coef + other_pol.coord.get(exp, 0)
+        for exp1, coef in other_pol.coord.items():
+            if exp1 not in resultado:
+                resultado[exp1]= other_pol.coord[exp1]
+        return RealPol(resultado)
+    
+    def __sub__(self, other_pol):#subtraindo os coefcientes de mesmo grau
+        resultado={}
+        for exp, coef in self.coord.items():
+            resultado[exp] = coef - other_pol.coord.get(exp, 0)
+        for exp1, coef in other_pol.coord.items():
+            if exp1 not in resultado:
+                resultado[exp1]= (-1)*other_pol.coord[exp1]
+        return RealPol(resultado)
+    
+    def __mul__(self, scalar): #multiplicando o polinômio por escalar
+        resultado={}
+        for exp, coef in self.coord.items():
+            resultado[exp] = coef*scalar
+        return RealPol(resultado)
+    
+    def _rmul__(self, scalar): #multiplicando o polinômio por escalar
+        resultado={}
+        for exp, coef in self.coord.items():
+            resultado[exp] = coef*scalar
+        return RealPol(resultado)
+    
+    def avaliar(self, x): #avaliando o polinomio em certo valor
+        resultado=0
+        for exp, coef in self.coord.items():
+            resultado += (x**(exp))*coef
+        return resultado
+    
 
 
-V2 = Vector3D([1, 2, 3])
-print('V2= ', V2)
-W2 = Vector3D([4, 5, 6])
-print('W2= ', W2)
-print('V2+W2=',V2+W2)
-print('V2-W2=',V2-W2)
-print('-V2=',-V2)
-print('5*V2=',5*V2)
-X2=Vector3D([-1, 4, -6])
-print('X2=', X2)
-print('abs(X2)=',abs(X2))
+if __name__ == '__main__':
+    pol1= RealPol({1: 5, 2: 6})
+    pol2=RealPol({1:10, 3:6})
+    print((pol1-pol2).coord)
+    print((pol1+pol2).coord)
+    print((3*pol1).coord)
+    print(pol1.avaliar(2))
 
 
-#Qyestão 5
+#Questão 5
 
 import collections
 import random
