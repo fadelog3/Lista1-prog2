@@ -36,7 +36,7 @@ print(subir_escadas(9))
         new_vector.append(a*self.coord[i])
       return Vector2D(new_vector) 
     
-    def __abs__(self):
+    def __abs__(self): #essa função retorna todas as entradas do vetor com valores não negativos
       new_vector=[]
       for i in range(self._dim):
         new_vector.append(abs(self.coord[i]))
